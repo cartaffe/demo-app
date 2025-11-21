@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  server:
+    build: .
+    container_name: flask-status-server
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - BEARER_TOKEN=my-secret-token-12345
+      - RATE_LIMIT=5
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - demo-network
+    labels:
+      - "com.example.description=Flask HTTP Status Code Server"
+      - "com.example.version=1.0"
+
+networks:
+  demo-network:
+    driver: bridge
