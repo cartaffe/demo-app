@@ -219,14 +219,15 @@ fetch('http://localhost:5000/protected', {
   .then(data => console.log(data));
 ```
 
-### Postman
+### Bruno 
 
-1. Crea una nueva petición GET
-2. URL: `http://localhost:5000/protected`
-3. En la pestaña **Authorization**:
+1. Descarga e instala Bruno desde su [sitio oficial](https://www.usebruno.com/)
+2. crear petición GET
+3. URL: `http://localhost:5000/protected`
+4. En la pestaña **Authorization**:
    - Type: `Bearer Token`
    - Token: `my-secret-token-12345`
-4. Envía la petición
+5. Envía la petición
 
 ## Testing Automatizado
 
