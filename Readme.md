@@ -27,14 +27,14 @@ Un servidor HTTP simple construido con Flask que demuestra diferentes códigos d
 
 ```bash
 # Clonar o descargar el proyecto
-git clone demo-app
-cd demo-app
+git clone htts-status-code
+cd htts-status-code
 
 # Instalar dependencias
 pip install flask==3.0.0
 
 # Ejecutar el servidor
-python demo-app.py
+python server.py
 ```
 
 El servidor estará disponible en `http://localhost:5000`
@@ -43,10 +43,10 @@ El servidor estará disponible en `http://localhost:5000`
 
 ```bash
 # Construir la imagen
-docker build -t demo-app:1.0 .
+docker build -t http-status-code-server .
 
 # Ejecutar el contenedor
-docker run -d --name flask-server -p 5000:5000 demo-app:1.0
+docker run -d --name flask-server -p 5000:5000 http-status-code-server
 
 # Ver logs
 docker logs -f flask-server
@@ -71,10 +71,10 @@ docker-compose down
 
 El token de autenticación por defecto es: `my-secret-token-12345`
 
-Para usar un token personalizado, modifica la variable `VALID_TOKEN` en demo-app.py` o usa una variable de entorno:
+Para usar un token personalizado, modifica la variable `VALID_TOKEN` en server.py` o usa una variable de entorno:
 
 ```bash
-docker run -d -p 5000:5000 -e BEARER_TOKEN="tu-token-secreto" demo-app:1.0
+docker run -d -p 5000:5000 -e BEARER_TOKEN="tu-token-secreto" http-status-code-server
 ```
 
 ### Rate Limiting
@@ -270,13 +270,13 @@ curl -s -o /dev/null -w "GET /error: %{http_code}\n" $BASE_URL/error
 
 ```bash
 # Construir imagen
-docker build -t demp-app:1.0 .
+docker build -t http-status-code-server .
 
 # Ejecutar en primer plano
-docker run -p 5000:5000 demo-app:1.0
+docker run -p 5000:5000 http-status-code-server
 
 # Ejecutar en segundo plano
-docker run -d --name flask-server -p 5000:5000 demo-app:1.0
+docker run -d --name flask-server -p 5000:5000 http-status-code-server
 
 # Ver logs
 docker logs flask-server
@@ -305,7 +305,7 @@ docker images
 
 ```bash
 # Mapear al puerto 8080 de tu máquina
-docker run -d -p 8080:5000 demo-app:1.0
+docker run -d -p 8080:5000 http-status-code-server
 
 # Acceder en: http://localhost:8080
 ```
@@ -318,7 +318,7 @@ docker run -d -p 8080:5000 demo-app:1.0
 
 **Solución:** El puerto 5000 está ocupado. Usa otro puerto:
 ```bash
-docker run -p 8080:5000 demo-app:1.0
+docker run -p 8080:5000 http-status-code-server
 ```
 
 ### El token no funciona
@@ -343,8 +343,8 @@ El servidor escucha en `0.0.0.0`, lo que permite conexiones externas. Verifica:
 ## Estructura del Proyecto
 
 ```
-demo-app/
-├── demo-app.py         # Código principal del servidor
+http-status-code/
+├── server.py           # Código principal del servidor
 ├── Dockerfile          # Configuración de Docker
 ├── docker-compose.yaml # Configuración de Docker Compose (opcional)
 └── README.md           # Este archivo

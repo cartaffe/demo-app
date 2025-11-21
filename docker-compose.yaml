@@ -3,6 +3,7 @@ version: '3.8'
 services:
   server:
     build: .
+    #image: carlostaffe/http-status-code-server:latest
     container_name: flask-status-server
     ports:
       - "5000:5000"
@@ -18,11 +19,11 @@ services:
       retries: 3
       start_period: 5s
     networks:
-      - demo-network
+      - status-code-server-network
     labels:
       - "com.example.description=Flask HTTP Status Code Server"
       - "com.example.version=1.0"
 
 networks:
-  demo-network:
+  status-code-server-network:
     driver: bridge
