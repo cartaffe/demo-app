@@ -22,7 +22,7 @@ jobs:
     - name: Get tag # latest or date of the build
       id: tag
       run: |
-        if [ $GITHUB_REF == 'refs/heads/master' ] ; then
+        if [ $GITHUB_REF == 'refs/heads/main' ] ; then
           echo "version=latest">> $GITHUB_OUTPUT
         else
           echo "version=$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT

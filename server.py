@@ -288,7 +288,7 @@ def page_not_found(e):
 if __name__ == '__main__':
     print("Starting Flask server...")
     print("Visit: http://localhost:5000")
-    print("\nBearer Token: my-secret-token-12345")
+    print("\nBearer Token: my-secret-token-12345 (default one, you can change it using env variable)")
     print("\nTest with curl:")
     print("  curl http://localhost:5000/success")
     print("  curl -H 'Authorization: Bearer my-secret-token-12345' http://localhost:5000/protected")
