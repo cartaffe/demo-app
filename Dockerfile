@@ -1,6 +1,14 @@
 # Use Python 3.11 slim image
 FROM python:3.11-slim
 
+# Install some utilities
+RUN apt update && apt install -y --no-install-recommends \
+    curl \
+    mtr \
+    iputils-ping \
+    telnet \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set working directory
 WORKDIR /app
 

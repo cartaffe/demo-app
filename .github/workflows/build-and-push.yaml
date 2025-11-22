@@ -1,4 +1,4 @@
-#create a github action to build and push the server-dns docker image to the docker hub 
+#create a github action to build and push the server-dns docker image to the docker hub
 name: HTTP response Server Image Build CI
 on:
   push:
@@ -6,6 +6,7 @@ on:
 #    - master
     paths:
       - 'Dockerfile'
+      - 'server.py'
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
@@ -17,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: docker login
       run: | # log into docker hub account
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Get tag # latest or date of the build
       id: tag
       run: |
