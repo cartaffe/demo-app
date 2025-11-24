@@ -2,6 +2,16 @@ from flask import Flask, request, jsonify, render_template_string
 from functools import wraps
 import time
 
+# Content Security Policy header
+CSP_POLICY = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+# Monkey patch Flask to inject CSP into every response
+_original_make_response = Flask.make_response
+def _csp_make_response(self, rv):
+    response = _original_make_response(self, rv)
+    response.headers.setdefault("Content-Security-Policy", CSP_POLICY)
+    return response
+Flask.make_response = _csp_make_response
+
 app = Flask(__name__)
 
 # Bearer token for authentication
