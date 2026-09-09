@@ -1,0 +1,63 @@
+name: test
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repository:
+        description: "Target repository"
+        required: true
+        type: string
+
+      analysis_profile:
+        description: "Analysis profile"
+        required: true
+        type: string
+
+      output_language:
+        description: "Output language"
+        required: true
+        type: string
+
+      issue_destination:
+        description: "Where to create the issue"
+        required: true
+        type: choice
+        options:
+          - workflow_repository
+          - analyzed_repository
+        default: workflow_repository
+
+jobs:
+  fake-response:
+    name: Fake fixed response
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show inputs
+        run: |
+          echo "Workflow repository: ${{ github.repository }}"
+          echo "target_repository: ${{ inputs.target_repository }}"
+          echo "analysis_profile: ${{ inputs.analysis_profile }}"
+          echo "output_language: ${{ inputs.output_language }}"
+          echo "issue_destination: ${{ inputs.issue_destination }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ------------------------------------------------------------
+      # Siempre devuelve el mismo contenido fijo, sin usar los inputs
+      # ------------------------------------------------------------
+      - name: Show fixed response
+        run: cat .github/workflows/response_rendia.json
+
+      - name: Upload usage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: usage
+          path: .github/workflows/usage.zip
+
+      - name: Upload safe-outputs-items artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: safe-outputs-items
+          path: .github/workflows/safe-outputs-items.zip
